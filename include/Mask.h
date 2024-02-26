@@ -1,5 +1,5 @@
-#ifndef BITMASK_H
-#define BITMASK_H
+#ifndef MASK_H
+#define MASK_H
 
 #define BIT_0_MASK  0x00000001
 #define BIT_1_MASK  0x00000002
@@ -35,22 +35,4 @@
 #define BIT_31_MASK 0x80000000
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
+#endif /*MASK_H*/

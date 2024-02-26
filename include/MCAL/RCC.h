@@ -1,6 +1,9 @@
 #ifndef RCC_H
 #define RCC_H
 
+#include "Mask.h"
+#include "std_types.h"
+
 
 /*********BUSES PRESCALER****************/
 #define PrescalerAHB_2 0x00000080
@@ -62,9 +65,6 @@
 
 
 
-typedef char uint8;
-typedef unsigned short uint16;
-typedef unsigned int uint32;
 
 /******SYSCLK OPTIONS *************/
 typedef enum
@@ -125,7 +125,7 @@ typedef enum
  * the Q  range: [2:15]
  * the P  range: [ 2, 4, 6, or 8]
  * */
-RCCERRORCHECK_enu ConfigPLL(uint16 M ,uint16 N,uint16 Q,uint16 P);
+RCCERRORCHECK_enu ConfigPLL(uint16_t M ,uint16_t N,uint16_t Q,uint16_t P);
 
 
 /*
@@ -145,13 +145,13 @@ RCCERRORCHECK_enu RCCSelectCLK(RCCSYSCLK_enu Sysclk);
 /*RCC_SelectPRESCALER Function: select bus prescaler
  * Prescaler options for APB1 ,APB2 :[2,4,8,16]
  * Prescaler options for AHB1 :[2,4,8,16,64,128,256,512]*/
-RCCERRORCHECK_enu RCCSelectPRESCALER(RCCBUSES_enu Sysbus,uint16 Prescaler);
+RCCERRORCHECK_enu RCCSelectPRESCALER(RCCBUSES_enu Sysbus,uint16_t Prescaler);
 
 /*RCCEnablePripheral Function: ENABLE
  *
 */
 
-RCCERRORCHECK_enu RCCEnablePripheral(uint32 Pripheral,RCCBUSES_enu Sysbus);
+RCCERRORCHECK_enu RCCEnablePripheral(uint32_t Pripheral,RCCBUSES_enu Sysbus);
 
 
 

@@ -1,21 +1,20 @@
-#include "BITMASK.h"
 #include "RCC.h"
 
 
 /***********RCC REGISTERS****************/
 
-#define RCC_CR *((volatile uint32*)0x40023800)
-#define RCC_PLLCFGR *((volatile uint32*)0x40023804)
-#define RCC_CFGR *((volatile uint32*)0x40023808)
-#define RCC_CIR *((volatile uint32*)0x4002380C)
-#define RCC_AHB1ENR *((volatile uint32*)0x40023830)
-#define RCC_AHB2ENR *((volatile uint32*)0x40023834)
-#define RCC_APB1ENR *((volatile uint32*)0x40023840)
-#define RCC_APB2ENR *((volatile uint32*)0x40023844)
-#define RCC_AHB1LPENR *((volatile uint32*)0x40023850)
-#define RCC_AHB2LPENR *((volatile uint32*)0x40023854)
-#define RCC_APB1LPENR *((volatile uint32*)0x40023860)
-#define RCC_APB2LPENR *((volatile uint32*)0x40023864)
+#define RCC_CR *((volatile uint32_t*)0x40023800)
+#define RCC_PLLCFGR *((volatile uint32_t*)0x40023804)
+#define RCC_CFGR *((volatile uint32_t*)0x40023808)
+#define RCC_CIR *((volatile uint32_t*)0x4002380C)
+#define RCC_AHB1ENR *((volatile uint32_t*)0x40023830)
+#define RCC_AHB2ENR *((volatile uint32_t*)0x40023834)
+#define RCC_APB1ENR *((volatile uint32_t*)0x40023840)
+#define RCC_APB2ENR *((volatile uint32_t*)0x40023844)
+#define RCC_AHB1LPENR *((volatile uint32_t*)0x40023850)
+#define RCC_AHB2LPENR *((volatile uint32_t*)0x40023854)
+#define RCC_APB1LPENR *((volatile uint32_t*)0x40023860)
+#define RCC_APB2LPENR *((volatile uint32_t*)0x40023864)
 
 
 /*********Registers bits************/
@@ -83,7 +82,7 @@ RCCERRORCHECK_enu RCCControlCLK(RCCSYSCLK_enu Sysclk,RCCState_enu SysclkSTATE)
 			}
 			else
 			{
-				RCC_CR |=HSEBYP;
+				RCC_CR &= ~ HSEBYP;
 				RCC_CR |=Sysclk_HSE ;
 				ReturnErrorStatus_enu = RCC_enuOK;
 			}
@@ -147,7 +146,7 @@ RCCERRORCHECK_enu RCCControlCLK(RCCSYSCLK_enu Sysclk,RCCState_enu SysclkSTATE)
 RCCERRORCHECK_enu RCCSelectCLK(RCCSYSCLK_enu Sysclk)
 {
 	RCCERRORCHECK_enu ReturnErrorStatus_enu = RCC_enuNOK;
-	uint8 localmask;
+	uint8_t localmask;
 	switch(Sysclk)
 	{
 	case Sysclk_HSI:
@@ -224,8 +223,8 @@ RCCERRORCHECK_enu RCCSelectCLK(RCCSYSCLK_enu Sysclk)
 	}
 	return ReturnErrorStatus_enu;
 }
-
-RCCERRORCHECK_enu RCCSelectPRESCALER(RCCBUSES_enu Sysbus,uint16 Prescaler)
+/*
+RCCERRORCHECK_enu RCCSelectPRESCALER(RCCBUSES_enu Sysbus,uint16_t Prescaler)
 {
 	RCCERRORCHECK_enu ReturnErrorStatus_enu = RCC_enuNOK;
 	uint8 localmask;
@@ -278,12 +277,12 @@ RCCERRORCHECK_enu RCCSelectPRESCALER(RCCBUSES_enu Sysbus,uint16 Prescaler)
 		break;
 	}
 	return ReturnErrorStatus_enu;
-}
+}*/
 
-RCCERRORCHECK_enu ConfigPLL(uint16 M ,uint16 N,uint16 Q,uint16 P)
+RCCERRORCHECK_enu ConfigPLL(uint16_t M ,uint16_t N,uint16_t Q,uint16_t P)
 {
 	RCCERRORCHECK_enu ReturnErrorStatus_enu = RCC_enuNOK;
-	uint16 localmask;
+	uint16_t localmask;
 	switch (P)
 	{
 	case 2:
@@ -327,7 +326,7 @@ RCCERRORCHECK_enu ConfigPLL(uint16 M ,uint16 N,uint16 Q,uint16 P)
 
 
 
-RCCERRORCHECK_enu RCCEnablePripheral(uint32 Pripheral,RCCBUSES_enu Sysbus)
+RCCERRORCHECK_enu RCCEnablePripheral(uint32_t Pripheral,RCCBUSES_enu Sysbus)
 {
 	RCCERRORCHECK_enu ReturnErrorStatus_enu = RCC_enuNOK;
 
