@@ -1,0 +1,34 @@
+---
+:source:
+  :path: test
+  :file: test_led.c
+:successes:
+- :test: test_LEDinit
+  :line: 23
+  :message: ''
+  :unity_test_time: 0
+- :test: test_LEDSetStatus_0
+  :line: 30
+  :message: ''
+  :unity_test_time: 0
+- :test: test_LEDSetStatus_1
+  :line: 38
+  :message: ''
+  :unity_test_time: 0
+- :test: test_LEDSetStatus_2
+  :line: 46
+  :message: ''
+  :unity_test_time: 0
+- :test: test_LEDSetStatus_3
+  :line: 54
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 5
+  :passed: 5
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.13737059999766643

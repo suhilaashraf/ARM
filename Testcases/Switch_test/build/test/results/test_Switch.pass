@@ -1,0 +1,26 @@
+---
+:source:
+  :path: test
+  :file: test_Switch.c
+:successes:
+- :test: test_SWITCH_INIT
+  :line: 19
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_GETSTATUS
+  :line: 27
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_GETSTATUS_1
+  :line: 34
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 3
+  :passed: 3
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.12531599999783793
