@@ -20,6 +20,13 @@ void tearDown(void)
 }
 
 
+void test_LEDinit_1(void)
+{
+    GPIO_InitPin_IgnoreAndReturn(Status_enumParameterError);
+    uint8_t result = LED_init ();
+    TEST_ASSERT_EQUAL_INT8(Status_enumParameterError ,result);
+}
+
 void test_LEDinit(void)
 {
     GPIO_InitPin_IgnoreAndReturn(Status_enumOk );
@@ -58,7 +65,12 @@ void test_LEDSetStatus_3(void)
     TEST_ASSERT_EQUAL_INT8(Status_enumParameterError ,result);
 }
 
-
+void test_LEDSetStatus_4(void)
+{
+    GPIO_SetPinValue_IgnoreAndReturn(Status_enumParameterError);
+    uint8_t result = Led_SetStatus(Led_one,LED_ON); // wrong set value
+    TEST_ASSERT_EQUAL_INT8(Status_enumParameterError ,result);
+}
 
 
 #endif // TEST

@@ -52,8 +52,7 @@ Error_enumStatus_t Led_SetStatus(uint8_t Led,uint8_t Led_state)
 	}
 	else
 	{
-		RETURN_ERRORSTATUS=Status_enumOk;
-		GPIO_SetPinValue(Ledcfg [Led].ledPORT,Ledcfg [Led].ledPIN,(Led_state^Ledcfg [Led].ledconnection));
+		RETURN_ERRORSTATUS=GPIO_SetPinValue(Ledcfg [Led].ledPORT,Ledcfg [Led].ledPIN,(Led_state^Ledcfg [Led].ledconnection));
 	}
 
 	return RETURN_ERRORSTATUS;

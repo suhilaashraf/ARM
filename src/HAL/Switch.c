@@ -48,8 +48,7 @@ Error_enumStatus_t SWITCH_GETSTATUS(SWITCHES_enu Switchname , uint32_t* SwitchSt
 	}
 	else
 	{
-		RETURN_ERRORSTATUS=Status_enumOk;
-		GPIO_GetPinValue(Switches[Switchname].SwitchPORT, Switches[Switchname].SwitchPINnumber,SwitchStatus);
+		RETURN_ERRORSTATUS=GPIO_GetPinValue(Switches[Switchname].SwitchPORT, Switches[Switchname].SwitchPINnumber,SwitchStatus);
 		if (Switches[Switchname].SwitchConnection == SWITCH_PULLUP)
 		{
 			*SwitchStatus = *SwitchStatus ^1;
