@@ -1,0 +1,17 @@
+[2024-03-01 21:55:12] Priority 0: Suscceded
+[2024-03-01 23:43:34] Priority 0: Suscceded
+Suscceded
+[2024-03-01 23:43:34] Priority 1: x = %d
+x = 5
+[2024-03-01 23:49:19] Priority 0: Suscceded
+Suscceded
+[2024-03-01 23:49:19] Priority 1: x = %d
+x = 5
+[2024-03-01 23:52:22] Priority 0
+Suscceded
+[2024-03-01 23:52:22] Priority 1
+x = 5
+[2024-03-02 00:18:53] Priority INFOSuscceded
+[2024-03-02 00:18:53] Priority WARNINGx = 5
+[2024-03-02 00:19:44] [INFO]: Suscceded
+[2024-03-02 00:19:44] [WARNING]: x = 5
