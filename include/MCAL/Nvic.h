@@ -6,19 +6,6 @@
 #include "Mask.h"
 #include "Interrupts.h"
  
-/***********************Group priority bits**************************************/
-
-#define Subpriority_0bits       0
-#define Subpriority_1bits       4
-#define Subpriority_2bits       5
-#define Subpriority_3bits       6
-#define Subpriority_4bits       7
-
-#define MAX_SUBpriority         7
-
-#define SubpriorityBits             Subpriority_0bits  
-
-
 /***********************Priority Levels **************************************/
 #define PRI0                        0
 #define PRI1                        1
@@ -38,16 +25,27 @@
 #define PRI15                       15
 #define MAXpriority                 15
 
+/***********************Group priority bits**************************************/
+#define Priority_FOURbits             0x05FA0000 /*16 priority levels- none sub priority*/
+#define Priority_THREEbits            0x05FA0400 /*8  priority levels - two sub priority group*/
+#define Priority_TWObits              0x05FA0500 /*4  priority levels- none sub priority group*/
+#define Priority_ONEbits              0x05FA0600 /*2  priority levels- none sub priority group*/
+#define Priority_none                 0x05FA0700 /*0 priority levels- none sub priority group*/
+
+#define MAX_PriorityBITS               7
+
+#define PriorityBits                Priority_3bits
+
 /***********************APIs Prototypes**************************************/
 Error_enumStatus_t NVIC_EnableIRQ(uint32_t IRQn);
 Error_enumStatus_t NVIC_DisableIRQ(uint32_t IRQn);
 Error_enumStatus_t NVIC_SetPendingIRQ(uint32_t IRQn);
 Error_enumStatus_t NVIC_ClearPendingIRQ(uint32_t IRQn);
 Error_enumStatus_t NVIC_GetActive(uint32_t *IRQn);
-Error_enumStatus_t NVIC_SetSubPriority(uint32_t SubpriorityBits);
-Error_enumStatus_t NVIC_SetPriority(uint32_t IRQn, uint32_t priority , uint32_t Subpriority);
+Error_enumStatus_t NVIC_SetPriorityLevels(uint32_t Priority_bits);
+Error_enumStatus_t NVIC_SetPriority (uint32_t IRQn, uint8_t PRI);
 Error_enumStatus_t NVIC_GetPriority(uint32_t *IRQn);
-Error_enumStatus_t NVIC_SoftwareReset(uint32_t IRQn);
+Error_enumStatus_t NVIC_TriggerSoftwareINT(uint32_t IRQn);
 Error_enumStatus_t NVIC_SystemReset(void);
 
 
