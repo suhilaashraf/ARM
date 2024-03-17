@@ -1,8 +1,8 @@
 #ifndef LED_H_
 #define LED_H_
 
-#include "STD_TYPES.h"
-#include "MASK.h"
+#include "std_types.h"
+#include "Mask.h"
 #include "Error.h"
 #include "Ledcfg.h"
 #include "gpio.h"

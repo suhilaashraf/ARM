@@ -36,19 +36,22 @@
 /********************SWITCH Coneection********************/
 
 #define SWITCH_FLOATING		(uint32_t)0x00000000
-#define SWITCH_PULLUP 		(uint32_t)0x00040001
-#define SWITCH_PULLDOWN		(uint32_t)0x00080002
+#define SWITCH_PULLDOWN 	(uint32_t)0x00040001
+#define SWITCH_PULLUP		(uint32_t)0x00080002
 
 /********************SWITCH STATUS********************/
 
-#define SWITCH_PRESSED			1
-#define SWITCH_RELEASED			0
+#define SWITCH_PRESSED			0
+#define SWITCH_RELEASED			1
 
-/********************SWITCH APIs********************/
+/********************SWITCH APIs Prototypes********************/
 
-Error_enumStatus_t SWITCH_INIT (void);
+Error_enumStatus_t SWITCH_init (void);
 
-Error_enumStatus_t SWITCH_GETSTATUS(SWITCHES_enu Switchname , uint32_t* SwitchStatus);
+Error_enumStatus_t SWITCH_GETSTATUS(SWITCHES_enu Switchname , uint8_t* SwitchStatus);
+
+
+
 
 #endif /*SWITCH_H_*/
 

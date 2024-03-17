@@ -3,8 +3,12 @@
 
 typedef enum
 {
-	Led_one,
-	Led_two,
+    GREEN,
+	YELLOW,
+		RED,
+
+
+	
     _LEDNUM
 }Led_enu;
 

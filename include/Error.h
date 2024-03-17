@@ -15,7 +15,11 @@ typedef enum
 	 */
 	Status_enumParameterError,
 	/**
-	 *@brief :Wrong Input error
+	 *@brief :Configuration error
+	 */
+	Status_enumCFGError,
+	/**
+	 *@brief :Null Pointer error
 	 */
 	Status_enumNULLPointer,
 
