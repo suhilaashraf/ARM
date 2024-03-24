@@ -10,10 +10,10 @@ Error_enumStatus_t LED_init ()
 	uint8_t Localcounter=0;
 	GPIOPIN_t LED;
 	uint8_t errorcounter=0;
-	LED.gpioMODE = GPIO_OUTPUT_PP;
 	LED.gpioSPEED = GPIO_HIGHSPEED;
 	for(Localcounter=0;Localcounter <_LEDNUM;Localcounter++)
 	{
+		LED.gpioMODE = GPIO_OUTPUT_PP;
 		LED.gpioPORT = Ledcfg [Localcounter].ledPORT;
 		LED.gpioPIN =  Ledcfg [Localcounter].ledPIN;
 		RETURN_ERRORSTATUS = GPIO_InitPin(&LED);
@@ -52,7 +52,8 @@ Error_enumStatus_t Led_SetStatus(uint8_t Led,uint8_t Led_state)
 	}
 	else
 	{
-		RETURN_ERRORSTATUS=GPIO_SetPinValue(Ledcfg [Led].ledPORT,Ledcfg [Led].ledPIN,(Led_state^Ledcfg [Led].ledconnection));
+		RETURN_ERRORSTATUS=Status_enumOk;
+		GPIO_SetPinValue(Ledcfg [Led].ledPORT,Ledcfg [Led].ledPIN,(Led_state^Ledcfg [Led].ledconnection));
 	}
 
 	return RETURN_ERRORSTATUS;

@@ -90,5 +90,7 @@ Error_enumStatus_t GPIO_SetPinValue(void* PORT , uint32_t gpio_pinNumber , uint3
 
 Error_enumStatus_t GPIO_GetPinValue(void* PORT , uint32_t gpio_pinNumber , uint8_t* gpiopinStatus);
 
+Error_enumStatus_t GPIO_TogglePin (void* PORT , uint32_t gpio_pinNumber);
+
 
 #endif

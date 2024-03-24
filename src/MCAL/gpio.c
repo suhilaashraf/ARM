@@ -124,7 +124,7 @@ Error_enumStatus_t GPIO_SetPinValue(void* PORT , uint32_t gpio_pinNumber , uint3
 	return RETURN_ERRORSTATUS;
 }
 
-Error_enumStatus_t GPIO_GetPinValue(void* PORT , uint32_t gpio_pinNumber , uint32_t* gpiopinStatus)
+Error_enumStatus_t GPIO_GetPinValue(void* PORT , uint32_t gpio_pinNumber , uint8_t* gpiopinStatus)
 {
 	Error_enumStatus_t RETURN_ERRORSTATUS=Status_enumNotOk;
 	if (PORT == NULL)
@@ -148,18 +148,42 @@ Error_enumStatus_t GPIO_GetPinValue(void* PORT , uint32_t gpio_pinNumber , uint3
 		RETURN_ERRORSTATUS=Status_enumOk;
 		if ( ( (BIT_0_MASK << (gpio_pinNumber*2) ) & ( ( (GPIO_t*)PORT )->MODER) )&& (!((BIT_1_MASK << (gpio_pinNumber*2) ) & ( ( (GPIO_t*)PORT )->MODER))) ) //check if the pin is configuered input or output
 		{
-			* gpiopinStatus = (((GPIO_t*)PORT)->ODR& (1<<gpio_pinNumber));
+			* gpiopinStatus = ( ( ( ((GPIO_t*)PORT)->ODR) >> gpio_pinNumber ) & (1) );
 		}
 		else
 		{
-			* gpiopinStatus = (((GPIO_t*)PORT)->IDR& (1<<gpio_pinNumber));
+			* gpiopinStatus = ( ( ( ((GPIO_t*)PORT)->IDR ) >> gpio_pinNumber ) & (1) );
 		}
 	}
 	return RETURN_ERRORSTATUS;
 }
 
 
-
+Error_enumStatus_t GPIO_TogglePin (void* PORT , uint32_t gpio_pinNumber)
+{
+	Error_enumStatus_t ReturnStatus = Status_enumNotOk;
+	if( !((PORT == GPIO_PORTA)||(PORT == GPIO_PORTB)||(PORT == GPIO_PORTC)))
+	{
+		ReturnStatus=Status_enumParameterError;
+	}
+	else if(gpio_pinNumber > 15)
+	{
+		ReturnStatus=Status_enumParameterError;
+	}	
+	else
+	{
+		ReturnStatus=Status_enumOk;
+		if (((GPIO_t*)PORT)->ODR & (1<<gpio_pinNumber))
+		{
+			((GPIO_t*)PORT)->BSRR |= (BIT_0_MASK << (gpio_pinNumber+BSRR_SHIFTMASK) ) ;
+		}
+		else
+		{
+			((GPIO_t*)PORT)->BSRR |= (BIT_0_MASK << gpio_pinNumber) ;
+		}
+	}
+	return ReturnStatus;
+}
 
 
 

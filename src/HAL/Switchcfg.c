@@ -7,12 +7,12 @@ SWITCHCFG_str Switches [_SWITCH_NUM ]=
 		{
 				.SwitchPORT = SWITCH_PORTA,
 				.SwitchPINnumber = SWITCH_PIN0,
-				.SwitchConnection = SWITCH_PULLUP,
+				.SwitchConnection = SWITCH_PULLDOWN,
 		},
 		[Switch_two]=
 		{
 				.SwitchPORT = SWITCH_PORTB,
 				.SwitchPINnumber = SWITCH_PIN0,
-				.SwitchConnection = SWITCH_PULLDOWN,
+				.SwitchConnection = SWITCH_PULLUP,
 		}
 };

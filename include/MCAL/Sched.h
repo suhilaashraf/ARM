@@ -5,8 +5,8 @@
 #include "Error.h"
 #include "Systick.h"
 
-#define RUNNABLES_NUM 1
-#define SCH_TICKS_MS 1000
+#define RUNNABLES_NUM 2
+#define SCH_TICKS_MS 2
 
 typedef void (*Runnable_Cb_t)(void);
 
@@ -18,7 +18,8 @@ typedef struct
     Runnable_Cb_t cbf ;
 } Runnable_t;
 
-Error_enumStatus_t Sched_RegisterRunnable( Runnable_t *r);
+extern const Runnable_t Runnables_info [RUNNABLES_NUM];
+
 void Sched_init(void);
 void Sched_Start(void);
 

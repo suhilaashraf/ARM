@@ -90,7 +90,7 @@ Error_enumStatus_t NVIC_ClearPendingIRQ(uint32_t IRQn)
     {
         ReturnErrorStatus = Status_enumOk;
         Localindex = IRQn / BITS_PER_REG;
-        NVIC_ICPR[Localindex] = (BIT_0_MASK << (IRQn % BITS_PER_REG));        
+        NVIC_ICPR[Localindex] = (BIT_0_MASK << (IRQn % BITS_PER_REG));
     }
     return ReturnErrorStatus;
 }
@@ -107,7 +107,7 @@ Error_enumStatus_t NVIC_GetActive(uint32_t *IRQn)
     {
         ReturnErrorStatus = Status_enumOk;
         Localindex = *IRQn / BITS_PER_REG;
-        *IRQn = ( (NVIC_ICPR[Localindex] >> (*IRQn % BITS_PER_REG) ) & (BIT_0_MASK ) );  
+        *IRQn = ( (NVIC_ICPR[Localindex] >> (*IRQn % BITS_PER_REG) ) & (BIT_0_MASK ) );
     }
     return ReturnErrorStatus;
 }
@@ -124,8 +124,6 @@ Error_enumStatus_t NVIC_SetPriorityLevels(uint32_t Priority_bits)
     else
     {
         ReturnErrorStatus = Status_enumOk;
-       // localmask &= ~VECTKEY_Clear;
-        
         localmask = AIRCR;
         localmask &= ~PRIGROUP_CLEAR;
         localmask |= Priority_bits;
@@ -138,7 +136,7 @@ Error_enumStatus_t NVIC_SetPriorityLevels(uint32_t Priority_bits)
 Error_enumStatus_t NVIC_SetPriority (uint32_t IRQn, uint8_t PRI)
 {
     Error_enumStatus_t ReturnErrorStatus = Status_enumNotOk;
-    uint8_t localindex; 
+    uint8_t localindex;
     uint8_t localshift;
     uint32_t localmask;
     if (IRQn > MAX_IRQn)
@@ -155,28 +153,28 @@ Error_enumStatus_t NVIC_SetPriority (uint32_t IRQn, uint8_t PRI)
         localindex = IRQn / BITS_PER_PRIREG;
         localshift = (IRQn % BITS_PER_PRIREG)*BITS_PER_BYTE;
         localmask = NVIC_IPR[localindex];
-        localmask &= ~ (PRIMASK <<localshift );
+        localmask &= ~ (PRIMASK <<localshift);
         localmask |= (PRI << localshift);
         NVIC_IPR[localindex] = localmask;
     }
     return ReturnErrorStatus;
 }
 
-Error_enumStatus_t NVIC_GetPriority(uint32_t *IRQn)
+Error_enumStatus_t NVIC_GetPriority(uint32_t IRQn , uint32_t* priority)
 {
     Error_enumStatus_t ReturnErrorStatus = Status_enumNotOk;
-    uint8_t localindex; 
+    uint8_t localindex;
     uint8_t localshift;
-    if (*IRQn > MAX_IRQn)
+    if (IRQn > MAX_IRQn)
     {
         ReturnErrorStatus = Status_enumParameterError;
     }
     else
     {
         ReturnErrorStatus = Status_enumOk;
-        localindex = *IRQn / BITS_PER_PRIREG;
-        localshift = (*IRQn % BITS_PER_PRIREG)*BITS_PER_BYTE;
-        *IRQn = (NVIC_IPR[localindex]>> localshift) & (PRIMASK);      
+        localindex = IRQn / BITS_PER_PRIREG;
+        localshift = (IRQn % BITS_PER_PRIREG)*BITS_PER_BYTE;
+        *priority =(NVIC_IPR[localindex]>> localshift) & (PRIMASK);
     }
     return ReturnErrorStatus;
 }
