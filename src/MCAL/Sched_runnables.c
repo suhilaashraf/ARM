@@ -1,26 +1,28 @@
 #include "Sched.h"
 
 /******************** System Runnables Prototypes********************/
-void LCD_TASK(void);
-void LCD_TEST (void);
+//void LCD_TASK(void);
+//void LCD_TEST (void);
+void Uart_TxBuffer(void);
+void Uart_Rxbuffer(void);
 
 
 const Runnable_t Runnables_info [RUNNABLES_NUM]=
 {
-    [0]=
+    [0] =
     {
-        .name = "LCD_TASK",
-        .periodicity_ms = 4,
+        .name = "Uart_TxBuffer",
+        .periodicity_ms = 1,
         .priority = 0,
-        .cbf = LCD_TASK,
-    },   
-    [1] =
+        .cbf = Uart_TxBuffer,
+    },    
+    [1]=
     {
-        .name = "Lcd test",
-        .periodicity_ms = 1000,
+        .name = "Uart_RxBuffer",
+        .periodicity_ms = 1,
         .priority = 1,
-        .cbf = LCD_TEST,
-    }    
+        .cbf = Uart_Rxbuffer,
+    }, 
 };
 
 
@@ -47,4 +49,5 @@ const Runnable_t Runnables_info [RUNNABLES_NUM]=
         .periodicity_ms = 50,
         .priority = 1,
         .cbf = APP1,
-    }   */
+    }  */
+    

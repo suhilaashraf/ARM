@@ -33,33 +33,60 @@
 #define GPIO_PIN15 	0x0000000F
 
 /********************GPIO pins Mode********************/
+
+/**
+ * Mask divided to 4 bytes:
+ * first byte: ID for parameter check
+ * 2nd byte : GPIOMODE 
+ * 3rd byte : GPIOPUPD
+ * 4th byte :GPIO OTYP
+ * 
+*/
 #define GPIO_INPUT_FL		(uint32_t)0x00000000
-#define GPIO_INPUT_PU		(uint32_t)0x00040001
-#define GPIO_INPUT_PD		(uint32_t)0x00080002
+#define GPIO_INPUT_PU		(uint32_t)0x00010001
+#define GPIO_INPUT_PD		(uint32_t)0x00020002
 
-#define GPIO_OUTPUT_PP 		(uint64_t)0x00010003
-#define GPIO_OUTPUT_PP_PU	(uint32_t)0x00050004
-#define GPIO_OUTPUT_PP_PD	(uint32_t)0x00090005
-#define GPIO_OUTPUT_OD		(uint32_t)0x00110006
-#define GPIO_OUTPUT_OD_PU	(uint32_t)0x00150007
-#define GPIO_OUTPUT_OD_PD	(uint32_t)0x00190008
+#define GPIO_OUTPUT_PP 		(uint64_t)0x00000103
+#define GPIO_OUTPUT_PP_PU	(uint32_t)0x00010104
+#define GPIO_OUTPUT_PP_PD	(uint32_t)0x00020105
+#define GPIO_OUTPUT_OD		(uint32_t)0x01000106
+#define GPIO_OUTPUT_OD_PU	(uint32_t)0x01010107
+#define GPIO_OUTPUT_OD_PD	(uint32_t)0x01020108
 
-#define GPIO_ANALOG 		(uint32_t)0x00030009
+#define GPIO_AF_PP 			(uint32_t)0x0000020A
+#define GPIO_AF_PP_PU		(uint32_t)0x0001020B
+#define GPIO_AF_PP_PD		(uint32_t)0x0002020C
+#define GPIO_AF_OD			(uint32_t)0x0100020D
+#define GPIO_AF_OD_PU		(uint32_t)0x0101020E
+#define GPIO_AF_OD_PD		(uint32_t)0x0102020F
 
-#define GPIO_AF_PP 			(uint32_t)0x0002000A
-#define GPIO_AF_PP_PU		(uint32_t)0x0006000B
-#define GPIO_AF_PP_PD		(uint32_t)0x000A000C
-#define GPIO_AF_OD			(uint32_t)0x0012000D
-#define GPIO_AF_OD_PU		(uint32_t)0x0016000E
-#define GPIO_AF_OD_PD		(uint32_t)0x001A000F
 
+#define GPIO_ANALOG 		(uint32_t)0x00000309
+
+
+
+/************** GPIO Alternate Functions **************/
+
+#define GPIO_AF_SYSTEM          0x00000000
+#define GPIO_AF_TIM1_2          0x00000001
+#define GPIO_AF_TIM3_5         	0x00000002
+#define GPIO_AF_TIME9_11       	0x00000003
+#define GPIO_AF_I2C1_3         	0x00000004
+#define GPIO_AF_SPI1_4         	0x00000005
+#define GPIO_AF_SPI3            0x00000006
+#define GPIO_AF_USART1_2        0x00000007
+#define GPIO_AF_USART6          0x00000008
+#define GPIO_AF_I2C2_3          0x00000009
+#define GPIO_AF_OTG_FS          0x0000000A
+#define GPIO_AF_SDIO            0x0000000C
+#define GPIO_AF_EVENTOUT        0x0000000F
 
 /********************GPIO SPEED ********************/
 
 #define GPIO_LOWSPEED       (uint32_t)0x00000010
-#define GPIO_MEDIUMSPEED    (uint32_t)0x00010011
-#define GPIO_HIGHSPEED      (uint32_t)0x00020012
-#define GPIO_VERYHIGHSPEED  (uint32_t)0x00030013
+#define GPIO_MEDIUMSPEED    (uint32_t)0x00000111
+#define GPIO_HIGHSPEED      (uint32_t)0x00000212
+#define GPIO_VERYHIGHSPEED  (uint32_t)0x00000313
 
 #define MAX_SPEED  			(uint32_t)0x00030013
 
@@ -81,6 +108,7 @@ typedef struct
 	uint32_t gpioPIN;
 	uint32_t gpioMODE;
 	uint32_t gpioSPEED;
+	uint8_t GPIO_AF;
 }GPIOPIN_t;
 /********************GPIO APIS Prototypes ********************/
 

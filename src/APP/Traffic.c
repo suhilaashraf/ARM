@@ -7,7 +7,7 @@ void Traffic_init(void)
 {
     LED_init();
 }
-
+/*
 void Traffic_Runnable(void)
 {
     static uint8_t State= GREEN;
@@ -57,3 +57,4 @@ void Traffic_Runnable(void)
     }   
 
 }
+*/

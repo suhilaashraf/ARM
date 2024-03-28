@@ -6,7 +6,7 @@
 #include "Systick.h"
 
 #define RUNNABLES_NUM 2
-#define SCH_TICKS_MS 2
+#define SCH_TICKS_MS 1
 
 typedef void (*Runnable_Cb_t)(void);
 

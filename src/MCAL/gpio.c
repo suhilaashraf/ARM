@@ -1,8 +1,10 @@
 #include "gpio.h"
 
 /********************GPIO MASKS********************/
-#define GPIO_GETMODE		0x00000003
-
+#define GPIO_GETMODE		3
+#define GPIO_GETAF			0x0000000F
+#define AF_SHIFTMASK 		4
+#define ShiftFactor 		8
 /********************GPIO Registers********************/
 typedef struct
 {
@@ -24,9 +26,9 @@ typedef struct
 Error_enumStatus_t GPIO_InitPin(GPIOPIN_t* gpiopin)
 {
 	Error_enumStatus_t RETURN_ERRORSTATUS=Status_enumNotOk;
-	uint16_t* gpioptr =NULL;
-	uint16_t localmask;
-	gpioptr = (uint16_t*)&gpiopin->gpioMODE;
+	uint8_t* gpioptr =NULL;
+	uint32_t localmask;
+	gpioptr = (uint8_t*)&gpiopin->gpioMODE;
 	if (gpiopin == NULL)
 	{
 		RETURN_ERRORSTATUS=Status_enumNULLPointer ;
@@ -46,7 +48,7 @@ Error_enumStatus_t GPIO_InitPin(GPIOPIN_t* gpiopin)
 	}
 	else
 	{
-		gpioptr = (uint16_t*)&gpiopin->gpioSPEED;
+		gpioptr = (uint8_t*)&gpiopin->gpioSPEED;
 	}
 	if((*gpioptr < 16)&&(*gpioptr >19))
 	{
@@ -59,23 +61,23 @@ Error_enumStatus_t GPIO_InitPin(GPIOPIN_t* gpiopin)
 
 		localmask = ((GPIO_t*)gpiopin->gpioPORT)->OSPEEDR;
 		localmask &= ~ (GPIO_GETMODE << (gpiopin->gpioPIN *SHIFTMASK ) );
-		localmask |= ( (GPIO_GETMODE&(uint32_t)(*gpioptr)) << (gpiopin->gpioPIN *SHIFTMASK ) );
-		((GPIO_t*)gpiopin->gpioPORT)->OSPEEDR |= localmask;
+		localmask |= ( (uint32_t)(*gpioptr) << (gpiopin->gpioPIN *SHIFTMASK ) );
+		((GPIO_t*)gpiopin->gpioPORT)->OSPEEDR = localmask;
 
-		gpioptr = (uint16_t*)&gpiopin->gpioMODE ;
+		gpioptr = (uint8_t*)&gpiopin->gpioMODE ;
 		gpioptr++;
 		localmask = ((GPIO_t*)gpiopin->gpioPORT)->MODER;
 		localmask &=~ (GPIO_GETMODE << (gpiopin->gpioPIN *SHIFTMASK ) );
-		localmask |= ( (GPIO_GETMODE&(uint32_t)(*gpioptr)) << (gpiopin->gpioPIN *SHIFTMASK ) );
-		((GPIO_t*)gpiopin->gpioPORT)->MODER |= localmask;
+		localmask |= ( (uint32_t)(*gpioptr) << (gpiopin->gpioPIN *SHIFTMASK ) );
+		((GPIO_t*)gpiopin->gpioPORT)->MODER = localmask;
 
-		(*gpioptr)>>=SHIFTMASK;
+		gpioptr++;
 		localmask = ((GPIO_t*)gpiopin->gpioPORT)->PUPDR;
 		localmask &=~ ( GPIO_GETMODE << (gpiopin->gpioPIN *SHIFTMASK ) );
-		localmask |= ((GPIO_GETMODE&(uint32_t)(*gpioptr))<<(gpiopin->gpioPIN *SHIFTMASK) );
-		((GPIO_t*)gpiopin->gpioPORT)->PUPDR |= localmask;
+		localmask |= ((uint32_t)(*gpioptr) <<(gpiopin->gpioPIN *SHIFTMASK) );
+		((GPIO_t*)gpiopin->gpioPORT)->PUPDR = localmask;
 
-		(*gpioptr)>>=SHIFTMASK;
+		gpioptr++;
 		if (BIT_0_MASK&(uint32_t)(*gpioptr))
 		{
 			((GPIO_t*)gpiopin->gpioPORT)->OTYPER |=( (BIT_0_MASK&(uint32_t)(*gpioptr))<<(gpiopin->gpioPIN ) );
@@ -83,7 +85,22 @@ Error_enumStatus_t GPIO_InitPin(GPIOPIN_t* gpiopin)
 		else
 		{
 			((GPIO_t*)gpiopin->gpioPORT)->OTYPER &= ~( (BIT_0_MASK&(uint32_t)(*gpioptr))<<(gpiopin->gpioPIN ) );
+		}
 
+		
+		if (gpiopin->GPIO_AF < 8)
+		{
+			localmask= ((GPIO_t*)gpiopin->gpioPORT)->AFRL;
+			localmask &= ~ (GPIO_GETAF << (gpiopin->gpioPIN *AF_SHIFTMASK));
+			localmask |= gpiopin->GPIO_AF <<(gpiopin->gpioPIN *AF_SHIFTMASK) ;
+			((GPIO_t*)gpiopin->gpioPORT)->AFRL = localmask;
+		}
+		else
+		{
+			localmask= ((GPIO_t*)gpiopin->gpioPORT)->AFRH;
+			localmask &= ~ (GPIO_GETAF << ((gpiopin->gpioPIN - ShiftFactor)*AF_SHIFTMASK));
+			localmask|= gpiopin->GPIO_AF<<((gpiopin->gpioPIN - ShiftFactor)*AF_SHIFTMASK) ;
+			((GPIO_t*)gpiopin->gpioPORT)->AFRH = localmask;
 		}
 	}
 	return RETURN_ERRORSTATUS;

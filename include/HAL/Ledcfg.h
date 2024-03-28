@@ -3,9 +3,7 @@
 
 typedef enum
 {
-    GREEN,
-	YELLOW,
-	RED,
+    Ledone,
 
 
 	

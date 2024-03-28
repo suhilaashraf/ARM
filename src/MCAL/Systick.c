@@ -43,7 +43,7 @@ Error_enumStatus_t STK_SetTimer_ms(uint32_t time_ms)
     uint32_t Localloadvalue;
     Systick_t *STK = (Systick_t *)STK_BASE;
 
-    Localloadvalue = (CLOCK_FREQUENCY_MHZ * time_ms) / SEC_TO_MS;
+    Localloadvalue =( ((CLOCK_FREQUENCY_MHZ /8)* time_ms) / (SEC_TO_MS)-1) ;
 
     if ((Localloadvalue >RELOAD_HIGH_BOUNDARY) || (Localloadvalue <RELOAD_LOW_BOUNDARY) )
     {
